@@ -1,0 +1,32 @@
+class Solution {
+    public int kokoEatsBananaGivenHour(int estimatedHour, int arr[], int h){
+        int totalHoursKokoTook = 0;
+        for(int i=0; i<arr.length; i++){
+            totalHoursKokoTook += Math.ceil((double)(arr[i])/(double)(estimatedHour));
+        }
+        return totalHoursKokoTook;
+    }
+    public int minEatingSpeed(int[] piles, int h) {
+        int low=1;
+        int high=maxi(piles);
+        int ans = -1;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            int totalHoursKokoAte = kokoEatsBananaGivenHour(mid, piles, h);
+            if(totalHoursKokoAte<=h){
+                ans = mid;
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+        }
+        return ans;
+    }
+    public int maxi(int arr[]){
+        int maxElem = Integer.MIN_VALUE;
+        for(int i=0; i<arr.length; i++){
+            if(arr[i]>maxElem) maxElem = arr[i];
+        }
+        return maxElem;
+    }
+}
