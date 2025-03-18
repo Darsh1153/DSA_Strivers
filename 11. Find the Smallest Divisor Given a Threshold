@@ -1,0 +1,29 @@
+class Solution {
+    public int smallestDivisor(int[] nums, int threshold) {
+        int low=1;
+        int high=maxi(nums);
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(calcThreshold(mid, nums, threshold) <= threshold){
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+        }
+        return low;
+    }
+    public int calcThreshold(int calcThreshold, int arr[], int threshold){
+        int totalSum=0;
+        for(int i=0; i<arr.length; i++){
+            totalSum += Math.ceil((double)(arr[i])/(double)(calcThreshold));
+        }
+        return totalSum;
+    }
+    public int maxi(int arr[]){
+        int maxElem = Integer.MIN_VALUE;
+        for(int i=0; i<arr.length; i++){
+            if(arr[i]>maxElem) maxElem=arr[i];
+        }
+        return maxElem;
+    }
+}
