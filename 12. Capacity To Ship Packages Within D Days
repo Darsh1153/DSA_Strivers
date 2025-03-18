@@ -1,0 +1,44 @@
+class Solution {
+    public int maxi(int arr[]){
+        int maxElem=Integer.MIN_VALUE;
+        for(int i=0; i<arr.length; i++){
+            if(arr[i]>maxElem){
+                maxElem=arr[i];
+            }
+        }
+        return maxElem;
+    }
+    public int sum(int arr[]){
+        int totalSum=0;
+        for(int i=0; i<arr.length; i++){
+            totalSum+=arr[i];
+        }
+        return totalSum;
+    }
+    public int shipWithinDays(int[] weights, int days) {
+        int low=maxi(weights);
+        int high=sum(weights);
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            int numberOfDays=totalDays(weights, days, mid);
+            if(numberOfDays<=days){
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+        }
+        return low;
+    }
+    public int totalDays(int arr[], int days, int assumeDay){
+        int totalDaysTaken=1; int load=0;
+        for(int i=0; i<arr.length; i++){
+            if(load+arr[i]>assumeDay){
+                totalDaysTaken++;
+                load=arr[i];
+            }else{
+                load+=arr[i];
+            }
+        }
+        return totalDaysTaken;
+    }
+}
